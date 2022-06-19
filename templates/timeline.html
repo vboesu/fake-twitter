@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{ super.scripts }}
+<script>var room = '{{ room }}';</script>
+<script defer src="/static/js/feed.js"></script>
+<script defer src="/static/js/users.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content-header">Home</div>
+<div class="content-body">
+    <div class="tweets">
+        {% include "prototypes/tweet.html" %}
+    </div>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="content-header">Select User to Post</div>
+<div class="content-body">
+    <div class="users">
+        {% include "prototypes/user.html" %}
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).on("click", ".users .user", function () {
+            // select user
+            var handle = $(this).data("handle").replace("@", "")
+            location.href = location.href + "/users/" + handle
+        })
+    })
+</script>
+{% endblock %}

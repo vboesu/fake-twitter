@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{ super.scripts }}
+<script>
+    $(function () {
+        $("header").css("filter", "blur(8px)")
+    })
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="start">
+    <div class="flex row center">
+        <div class="flex column center">
+            <h2 class="flex-item stretch">Enter Room Code</h2>
+            <div class="flex-item stretch input-label">
+                <input id="room_code" type="text" placeholder="room code">
+                <label for="room_code">room name</label>
+            </div>
+            <a class="button primary enter-to-click flex-item stretch flex-margin-tiny">Join or Create Feed</a>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".button").click(function () {
+            location.href = `/${$("#room_code").val()}`
+        })
+    })
+</script>
+{% endblock %}

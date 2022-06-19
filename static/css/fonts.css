@@ -1,0 +1,17 @@
+/* fonts */
+
+@font-face {
+    font-family: "chirp";
+    font-weight: 400;
+    src: url(/static/fonts/chirp_regular.woff) format("woff")
+}
+
+@font-face {
+    font-family: "chirp";
+    font-weight: 700;
+    src: url(/static/fonts/chirp_bold.woff) format("woff")
+}
+
+body, input {
+    font-family: "chirp", sans-serif;
+}

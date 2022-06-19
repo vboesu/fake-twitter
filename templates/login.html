@@ -1,0 +1,24 @@
+{% extends "start.html" %}
+
+{% block content %}
+<form action="/api/rooms/{{ room }}/login" method="post">
+    <input type="hidden" name="room" value="{{ room }}" />
+    <div class="start">
+        <div class="flex row center">
+            <div class="flex column center">
+                <h2 class="flex-item stretch">Enter Moderator Password</h2>
+                <div class="flex-item stretch input-label">
+                    <input id="room_pwd" name="password" type="password" placeholder="moderator password">
+                    <label for="room_pwd">moderator password</label>
+                </div>
+                <a class="button primary flex-item stretch flex-margin-tiny enter-to-click">Login as Moderator</a>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $(".button").click(() => { $("form").trigger("submit") })
+    })
+</script>
+{% endblock %}

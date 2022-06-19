@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{ super.scripts }}
+<script>var room = '{{ room.slug }}'; var popUp = null; var feedArgs = { deleted: true }; </script>
+<script src="/static/js/admin.js"></script>
+<script defer src="/static/js/feed.js"></script>
+<script defer src="/static/js/users.js"></script>
+<script defer src="/static/js/popup.js"></script>
+{% endblock %}
+
+{% block admin_link %}/{{ room.slug }}/admin{% endblock %}
+{% block home_link %}/{{ room.slug }}{% endblock %}
+
+{% block nav_selected_admin %}selected{% endblock %}
+{% block nav_selected_home %}{% endblock %}
+
+{% block content %}
+<div class="content-header">Moderate {{ room.name }}</div>
+<div class="admin-header-select flex row">
+    <div class="admin-header-select-link flex-item grow" data-select="feed">Feed</div>
+    <div class="admin-header-select-link flex-item grow" data-select="users">Users</div>
+</div>
+<div class="content-body admin-header-select-item" data-select="feed">
+    <div class="tweets">
+        {% include "prototypes/tweet_admin.html" %}
+    </div>
+</div>
+<div class="content-body admin-header-select-item flex column" data-select="users">
+    <div class="flex-item grow users">
+        {% include "prototypes/user_admin.html" %}
+    </div>
+    <div class="flex-item stretch flex-margin-small menu-bottom flex column end">
+        <div class="button primary create-user">Create User</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="content-header">Settings</div>
+<div class="content-body flex column">
+    <div class="settings flex-item grow">
+        <form>
+            <div class="setting">
+                <div class="input-label static">
+                    <input type="number" min="0" step="any" id="user_tweet_rate" name="user_tweet_rate"
+                        placeholder="user tweet rate (default: 20)" value="{{ room.user_tweet_rate }}" />
+                    <label for="user_tweet_rate">User Tweet Rate</label>
+                    <explanation for="user_tweet_rate">How often can a user tweet? (in seconds)</explanation>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="input-label static">
+                    <input type="number" min="0" step="any" id="tweet_refresh_rate" name="tweet_refresh_rate"
+                        placeholder="tweet refresh rate (default: 10)" value="{{ room.tweet_refresh_rate }}" />
+                    <label for="tweet_refresh_rate">Tweet Refresh Rate</label>
+                    <explanation for="tweet_refresh_rate">How often is the newest tweet shown? (in seconds)
+                    </explanation>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="input-label static">
+                    <input type="number" min="0" step="any" id="tweet_highlight_length" name="tweet_highlight_length"
+                        placeholder="tweet highlight length (default: 20)" value="{{ room.tweet_highlight_length }}" />
+                    <label for="tweet_highlight_length">Tweet Highlight Length</label>
+                    <explanation for="tweet_highlight_length">How long does a highlight last? (in seconds)
+                    </explanation>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="settings-actions flex column flex-item stretch">
+        <a class="button primary bordered flex-item stretch export-room">Export room data</a>
+        <a class="button red flex-item flex-margin-tiny stretch delete-room">Delete room</a>
+        <a class="button primary flex-item flex-margin-tiny stretch save-settings">Save settings</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+<script>var room = '{{ room }}'; var user = '{{ user.id }}';</script>
+<script defer src="/static/js/feed.js"></script>
+<script defer src="/static/js/users.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content-header">Post as {{ user.name }} (@{{ user.handle }})</div>
+<div class="content-body">
+    <div class="tweets">
+        <article class="compose">
+            <div class="tweet-author-image">
+                <img src="{{ user.profile_image }}" />
+            </div>
+            <div class="tweet-content">
+                <div class="tweet-text">
+                    <div id="text" contenteditable="true" data-limit="char:280" placeholder="What's happening?"></div>
+                    <div class="text-limit-bar"></div>
+                </div>
+                <div class="tweet-actions">
+                    <a class="button small primary post-tweet">Tweet</a>
+                </div>
+            </div>
+        </article>
+        {% include "prototypes/tweet.html" %}
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).on("click", ".post-tweet", function () {
+            // post tweet
+            var text = $("input[name=text]").val()
+            if (text) {
+                $(".compose").addClass("loading")
+                $.post(
+                    "/api/tweets/create",
+                    { room: room, handle: "{{ user.handle }}", content: text },
+                ).always(() => {
+                    $(".compose").removeClass("loading")
+                    refreshFeed()
+                }).done(() => {
+                    $("#text").empty().trigger("input")
+                }).fail(err => {
+                    alert(err.responseJSON.message)
+                })
+            }
+        })
+    })
+</script>
+{% endblock %}
+
+{% block side %}
+<div class="content-header">Select User to Post</div>
+<div class="content-body">
+    <div class="users">
+        {% include "prototypes/user.html" %}
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).on("click", ".users .user", function () {
+            // select user
+            var handle = $(this).data("handle").replace("@", "")
+            location.href = "./" + handle
+        })
+    })
+</script>
+{% endblock %}
