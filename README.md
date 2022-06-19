@@ -1,8 +1,8 @@
-#Fake Twitter Tool
+# Fake Twitter Tool
 
 Originally developed for the [https://theblueplanetproject.de](Blue Planet Project) conference on June 24, 2022.
 
-##Installation
+## Installation
 
 1. Create virtual environment using `python -m venv [name_of_virtual_environment]`.
 2. Activate your virtual environment using `source [name_of_virtual_environment]/bin/activate`.
