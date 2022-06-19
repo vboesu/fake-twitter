@@ -1,6 +1,6 @@
 # Fake Twitter Tool
 
-Originally developed for the [https://theblueplanetproject.de](Blue Planet Project) conference on June 24, 2022.
+Originally developed for the [Blue Planet Project](https://theblueplanetproject.de) conference on June 24, 2022.
 
 ## Installation
 
